@@ -43,7 +43,7 @@ by byæ mi³ym sposobem nauki pisania dla dzieci.
 %build
 rm -f missing
 %{__libtoolize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure
