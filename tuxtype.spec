@@ -2,7 +2,7 @@ Summary:	Tux Typing - Graphical, educational typing tutorial game.
 Summary(pl):	Tux Typing - Gra edukacyjna, ucz±ca pisania na klawiaturze.
 Name:		tuxtype
 Version:	1.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
@@ -13,6 +13,8 @@ Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-paths.patch
 URL:		http://www.geekcomix.com/dm/tuxtype/
 BuildRequires:	SDL-devel
+BuildRequires:	SDL_mixer-devel
+BuildRequires:	SDL_image-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
