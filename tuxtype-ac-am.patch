@@ -1,0 +1,208 @@
+diff -uNr tuxtype-1.0.3.orig/acinclude.m4 tuxtype-1.0.3/acinclude.m4
+--- tuxtype-1.0.3.orig/acinclude.m4	Fri Aug 17 00:22:19 2001
++++ tuxtype-1.0.3/acinclude.m4	Thu Sep 26 19:54:30 2002
+@@ -705,7 +705,6 @@
+ 
+ ])
+ 
+-AC_LANG_RESTORE
+ ])
+ 
+ AC_DEFUN(KDE_PRINT_QT_PROGRAM,
+@@ -852,7 +851,6 @@
+ export LD_LIBRARY_PATH
+ LIBRARY_PATH="$ac_LIBRARY_PATH"
+ export LIBRARY_PATH
+-AC_LANG_RESTORE
+ ])
+ 
+ if test "$kde_cv_qt_direct" = "yes"; then
+@@ -963,7 +961,6 @@
+ LDFLAGS="$ac_ldflags_safe"
+ LIBS="$ac_libs_safe"
+ 
+-AC_LANG_RESTORE
+ if test "$ac_qt_includes" = NO || test "$ac_qt_libraries" = NO; then
+   ac_cv_have_qt="have_qt=no"
+   ac_qt_notfound=""
+@@ -1318,7 +1315,6 @@
+      AC_CHECK_LIB(kimgio, kimgioRegister, [
+       LIBKIMGIO_EXISTS=yes],LIBKIMGIO_EXISTS=no)
+       LIBS="$kde_save_LIBS"
+-      AC_LANG_RESTORE
+    else
+       LIBKIMGIO_EXISTS=yes
+    fi
+@@ -1822,7 +1818,6 @@
+ 
+ AC_DEFUN(KDE_CHECK_COMPILER_FLAG,
+ [
+-AC_REQUIRE([AC_CHECK_COMPILERS])
+ AC_MSG_CHECKING(whether $CXX supports -$1)
+ kde_cache=`echo $1 | sed 'y%.=/+-%___p_%'`
+ AC_CACHE_VAL(kde_cv_prog_cxx_$kde_cache,
+@@ -2065,7 +2060,6 @@
+          CXXCPP="${CXX-g++} -E"
+          AC_TRY_CPP([#include <stdlib.h>], , CXXCPP=/lib/cpp)
+          ac_cv_prog_CXXCPP="$CXXCPP"
+-         AC_LANG_RESTORE[]dnl
+      ])dnl
+      CXXCPP="$ac_cv_prog_CXXCPP"
+      fi
+@@ -2121,7 +2115,6 @@
+   AM_PROG_LIBTOOL
+ #  LIBTOOL="$LIBTOOL --silent"
+   dnl AC_SUBST(LIBTOOL)
+-  AC_LANG_RESTORE
+   CC=$kde_save_cc
+   CFLAGS="$kde_save_cflags"
+   LIBTOOL_SHELL='/bin/sh ./libtool'
+@@ -2201,7 +2194,6 @@
+ ac_cv_ksize_t=size_t)
+ CXXFLAGS="$ac_safe_cxxflags"
+ fi
+-AC_LANG_RESTORE
+ ])
+ 
+ if test -z "$ac_cv_ksize_t"; then
+@@ -2339,20 +2331,7 @@
+ dnl From Jim Meyering.
+ dnl FIXME: migrate into libit.
+ 
+-AC_DEFUN(AM_FUNC_OBSTACK,
+-[AC_CACHE_CHECK([for obstacks], am_cv_func_obstack,
+- [AC_TRY_LINK([#include "obstack.h"],
+-	      [struct obstack *mem;obstack_free(mem,(char *) 0)],
+-	      am_cv_func_obstack=yes,
+-	      am_cv_func_obstack=no)])
+- if test $am_cv_func_obstack = yes; then
+-   AC_DEFINE(HAVE_OBSTACK)
+- else
+-   LIBOBJS="$LIBOBJS obstack.o"
+- fi
+-])
+-
+-dnl From Jim Meyering.  Use this if you use the GNU error.[ch].
++[18~dnl From Jim Meyering.  Use this if you use the GNU error.[ch].
+ dnl FIXME: Migrate into libit
+ 
+ AC_DEFUN(AM_FUNC_ERROR_AT_LINE,
+@@ -2403,7 +2382,6 @@
+    ],
+    kde_cv_func_stpcpy=yes,
+    kde_cv_func_stpcpy=no)
+-   AC_LANG_RESTORE
+    CXXFLAGS=$kde_safe_cxxflags
+    ])
+    AC_MSG_RESULT($kde_cv_func_stpcpy)
+@@ -3002,7 +2980,6 @@
+ kde_cv_have_mini_stl=no,
+ kde_cv_have_mini_stl=yes)
+ CXXFLAGS="$kde_save_cxxflags"
+-AC_LANG_RESTORE
+ ])
+ 
+ if test "x$kde_cv_have_mini_stl" = "xyes"; then
+@@ -3069,7 +3046,6 @@
+   AC_MSG_RESULT(no)
+   $4
+ fi
+-AC_LANG_RESTORE
+ 
+ fi
+ 
+@@ -3216,7 +3192,6 @@
+        fi
+     fi
+ 
+-    AC_LANG_RESTORE
+ ])
+ 
+ AC_DEFUN(AC_FIND_QIMGIO,
+@@ -3246,7 +3221,6 @@
+ 	    ac_cv_lib_qimgio=no)
+ LIBS="$ac_save_LIBS"
+ CXXFLAGS="$ac_save_CXXFLAGS"
+-AC_LANG_RESTORE
+ ])dnl
+ if eval "test \"`echo $ac_cv_lib_qimgio`\" = yes"; then
+   LIBQIMGIO="-lqimgio -lpng -lz $LIBJPEG"
+@@ -3384,7 +3358,6 @@
+ ], [
+ AC_MSG_RESULT(no)
+ ])
+-AC_LANG_RESTORE
+ ])
+ 
+ AC_DEFUN(KDE_CHECK_NEWLIBS,
+@@ -3413,7 +3386,6 @@
+ ],
+ ac_cv_have_s_issock=yes,
+ ac_cv_have_s_issock=no)
+-AC_LANG_RESTORE
+ ])
+ AC_MSG_RESULT($ac_cv_have_s_issock)
+ if test "$ac_cv_have_s_issock" = "yes"; then
+@@ -3497,7 +3469,6 @@
+    AC_LANG_CPLUSPLUS
+    AC_CHECK_HEADER($1, $2, $3)
+    CPPFLAGS=$kde_safe_cppflags
+-   AC_LANG_RESTORE
+ ])
+ 
+ AC_DEFUN(KDE_CHECK_QWSPRITEFIELD,
+@@ -3663,7 +3634,7 @@
+     [AC_LANG_SAVE
+      AC_LANG_C
+      AC_TRY_LINK([],[],[lt_cv_cc_needs_belf=yes],[lt_cv_cc_needs_belf=no])
+-     AC_LANG_RESTORE])
++     ])
+   if test x"$lt_cv_cc_needs_belf" != x"yes"; then
+     # this is probably gcc 2.8.0, egcs 1.0 or newer; no need for -belf
+     CFLAGS="$SAVE_CFLAGS"
+diff -uNr tuxtype-1.0.3.orig/configure.in tuxtype-1.0.3/configure.in
+--- tuxtype-1.0.3.orig/configure.in	Mon Aug 19 09:00:56 2002
++++ tuxtype-1.0.3/configure.in	Thu Sep 26 19:54:53 2002
+@@ -22,10 +22,6 @@
+ dnl
+ AM_CONFIG_HEADER(config.h)
+ 
+-dnl checks for programs.
+-dnl first check for c/c++ compilers
+-AC_CHECK_COMPILERS
+-
+ dnl create only shared libtool-libraries
+ AC_ENABLE_SHARED(yes)
+ 
+@@ -34,10 +30,7 @@
+ AC_ENABLE_STATIC(no)
+ 
+ dnl create a working libtool-script
+-KDE_PROG_LIBTOOL
+-
+-dnl check for presence of dynamic-loading-library functions
+-KDE_CHECK_LIBDL
++AC_PROG_LIBTOOL
+ 
+ dnl activate the following for some additional tests
+ dnl   (compat, crypt, socket, nsl, ...)
+@@ -45,7 +38,6 @@
+ 
+ dnl add --with-extra-includes and --with-extra-libs switch to ./configure
+ dnl
+-AC_REQUIRE([KDE_CHECK_EXTRA_LIBS])
+ all_libraries="$all_libraries $USER_LDFLAGS"
+ all_includes="$all_includes $USER_INCLUDES"
+ AC_SUBST(all_includes)
+diff -uNr tuxtype-1.0.3.orig/tuxtype/Makefile.am tuxtype-1.0.3/tuxtype/Makefile.am
+--- tuxtype-1.0.3.orig/tuxtype/Makefile.am	Thu Sep 26 19:37:06 2002
++++ tuxtype-1.0.3/tuxtype/Makefile.am	Thu Sep 26 19:54:30 2002
+@@ -3,7 +3,7 @@
+ tuxtype_SOURCES = playgame.c graphics.c main.c graphics.h globals.h funcs.h playgame.h
+ tuxtype_LDADD   = 
+ CFLAGS = @CFLAGS@ -DPKGDATADIR=\"$(pkgdatadir)/\"
+-tuxtype_CFLAGS = CFLAGS
++tuxtype_CFLAGS = @CFLAGS@
+ 
+ SUBDIRS = docs images sounds data 
+ 
