@@ -42,7 +42,7 @@ by byæ mi³ym sposobem nauki pisania dla dzieci.
 %build
 automake -a
 aclocal
-autoconf
+%{__autoconf}
 %configure
 %{__make}
 
