@@ -8,7 +8,7 @@ Group:		X11/Applications/Games
 Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/%{name}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-Makefile.patch
-Patch1:         %{name}-ac-am.patch
+Patch1:		%{name}-ac-am.patch
 URL:		http://www.geekcomix.com/dm/tuxtype/
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
