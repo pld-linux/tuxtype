@@ -1,0 +1,624 @@
+diff -durN tuxtype-1.0.orig/Makefile.am tuxtype-1.0/Makefile.am
+--- tuxtype-1.0.orig/Makefile.am	Wed Aug  1 13:22:00 2001
++++ tuxtype-1.0/Makefile.am	Tue Aug  7 15:22:11 2001
+@@ -2,32 +2,7 @@
+ 
+ SUBDIRS = tuxtype 
+ 
+-EXTRA_DIST = tuxtype.kdevprj AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec README.Win32 
+-
+-install-data-local:
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) AUTHORS /usr/doc/tuxtype/AUTHORS
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) COPYING /usr/doc/tuxtype/COPYING
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) ChangeLog /usr/doc/tuxtype/ChangeLog
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) INSTALL /usr/doc/tuxtype/INSTALL
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) README /usr/doc/tuxtype/README
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) TODO /usr/doc/tuxtype/TODO
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) tuxtype.lsm /usr/doc/tuxtype/tuxtype.lsm
+-
+-uninstall-local:
+-	-rm -f /usr/doc/tuxtype/AUTHORS
+-	-rm -f /usr/doc/tuxtype/COPYING
+-	-rm -f /usr/doc/tuxtype/ChangeLog
+-	-rm -f /usr/doc/tuxtype/INSTALL
+-	-rm -f /usr/doc/tuxtype/README
+-	-rm -f /usr/doc/tuxtype/TODO
+-	-rm -f /usr/doc/tuxtype/tuxtype.lsm
++EXTRA_DIST = tuxtype.kdevprj tuxtype.lsm tuxtype.spec README.Win32 
+ 
+ ####### kdevelop will overwrite this part!!! (end)############
+ AUTOMAKE_OPTIONS = foreign
+diff -durN tuxtype-1.0.orig/tuxtype/Makefile.am tuxtype-1.0/tuxtype/Makefile.am
+--- tuxtype-1.0.orig/tuxtype/Makefile.am	Wed Aug  1 13:22:00 2001
++++ tuxtype-1.0/tuxtype/Makefile.am	Tue Aug  7 15:22:11 2001
+@@ -1,11 +1,11 @@
+ ####### kdevelop will overwrite this part!!! (begin)##########
+ bin_PROGRAMS = tuxtype
+-tuxtype_SOURCES = playgame.c graphics.c main.c 
++tuxtype_SOURCES = playgame.c graphics.c main.c graphics.h globals.h funcs.h playgame.h
+ tuxtype_LDADD   = -lSDL_mixer -lSDL_image
++CFLAGS = @CFLAGS@ -DPKGDATADIR=\"$(pkgdatadir)/\"
++tuxtype_CFLAGS = CFLAGS
+ 
+ SUBDIRS = docs images sounds data 
+-
+-EXTRA_DIST = main.c graphics.c graphics.h globals.h playgame.c funcs.h playgame.h 
+ 
+ ####### kdevelop will overwrite this part!!! (end)############
+ bin_PROGRAMS = tuxtype
+diff -durN tuxtype-1.0.orig/tuxtype/data/Makefile.am tuxtype-1.0/tuxtype/data/Makefile.am
+--- tuxtype-1.0.orig/tuxtype/data/Makefile.am	Wed Aug  1 13:22:00 2001
++++ tuxtype-1.0/tuxtype/data/Makefile.am	Tue Aug  7 15:23:00 2001
+@@ -1,22 +1,7 @@
+ ####### kdevelop will overwrite this part!!! (begin)##########
+ 
++wordsdir = $(pkgdatadir)/data
+ 
+-EXTRA_DIST = words1.txt words2.txt words3.txt words4.txt 
+-
+-install-data-local:
+-	$(mkinstalldirs) /usr/local/share/tuxtype/data/
+-	$(INSTALL_DATA) words1.txt /usr/local/share/tuxtype/data/words1.txt
+-	$(mkinstalldirs) /usr/local/share/tuxtype/data/
+-	$(INSTALL_DATA) words2.txt /usr/local/share/tuxtype/data/words2.txt
+-	$(mkinstalldirs) /usr/local/share/tuxtype/data/
+-	$(INSTALL_DATA) words3.txt /usr/local/share/tuxtype/data/words3.txt
+-	$(mkinstalldirs) /usr/local/share/tuxtype/data/
+-	$(INSTALL_DATA) words4.txt /usr/local/share/tuxtype/data/words4.txt
+-
+-uninstall-local:
+-	-rm -f /usr/local/share/tuxtype/data/words1.txt
+-	-rm -f /usr/local/share/tuxtype/data/words2.txt
+-	-rm -f /usr/local/share/tuxtype/data/words3.txt
+-	-rm -f /usr/local/share/tuxtype/data/words4.txt
++words_DATA = words1.txt words2.txt words3.txt words4.txt 
+ 
+ ####### kdevelop will overwrite this part!!! (end)############
+diff -durN tuxtype-1.0.orig/tuxtype/docs/en/Makefile.am tuxtype-1.0/tuxtype/docs/en/Makefile.am
+--- tuxtype-1.0.orig/tuxtype/docs/en/Makefile.am	Wed Aug  1 13:22:00 2001
++++ tuxtype-1.0/tuxtype/docs/en/Makefile.am	Tue Aug  7 15:22:11 2001
+@@ -1,31 +1,8 @@
+ ####### kdevelop will overwrite this part!!! (begin)##########
+ 
+ 
+-EXTRA_DIST = index.html index-1.html index-2.html index-3.html index-4.html index-5.html index-6.html 
+-
+-install-data-local:
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) index.html /usr/doc/tuxtype/index.html
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) index-1.html /usr/doc/tuxtype/index-1.html
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) index-2.html /usr/doc/tuxtype/index-2.html
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) index-3.html /usr/doc/tuxtype/index-3.html
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) index-4.html /usr/doc/tuxtype/index-4.html
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) index-5.html /usr/doc/tuxtype/index-5.html
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) index-6.html /usr/doc/tuxtype/index-6.html
++pkgdocdir = $(prefix)/share/doc/tuxtype
+ 
+-uninstall-local:
+-	-rm -f /usr/doc/tuxtype/index.html
+-	-rm -f /usr/doc/tuxtype/index-1.html
+-	-rm -f /usr/doc/tuxtype/index-2.html
+-	-rm -f /usr/doc/tuxtype/index-3.html
+-	-rm -f /usr/doc/tuxtype/index-4.html
+-	-rm -f /usr/doc/tuxtype/index-5.html
+-	-rm -f /usr/doc/tuxtype/index-6.html
++pkgdoc_DATA = index.html index-1.html index-2.html index-3.html index-4.html index-5.html index-6.html 
+ 
+ ####### kdevelop will overwrite this part!!! (end)############
+diff -durN tuxtype-1.0.orig/tuxtype/images/Makefile.am tuxtype-1.0/tuxtype/images/Makefile.am
+--- tuxtype-1.0.orig/tuxtype/images/Makefile.am	Wed Aug  1 13:22:00 2001
++++ tuxtype-1.0/tuxtype/images/Makefile.am	Tue Aug  7 15:22:11 2001
+@@ -1,436 +1,9 @@
+ ####### kdevelop will overwrite this part!!! (begin)##########
+ 
++imagesdir = $(pkgdatadir)/images
++pkgdocdir = $(prefix)/share/doc/tuxtype
+ 
+-EXTRA_DIST = congrats1.png congrats2.png fish.png fishy1.png fishy2.png fishy3.png fishy4.png gm_1.png gm_2.png gm_3.png kcas1_1.png kcas1_2.png kcas1_3.png kcas1_4.png kcas2_1.png kcas2_2.png kcas2_3.png kcas2_4.png kcas3_1.png kcas3_2.png kcas3_3.png kcas3_4.png let_1.png let_10.png let_11.png let_12.png let_13.png let_14.png let_15.png let_16.png let_17.png let_18.png let_19.png let_2.png let_20.png let_21.png let_22.png let_23.png let_24.png let_25.png let_26.png let_3.png let_4.png let_5.png let_6.png let_7.png let_8.png let_9.png level.png lives.png main_bkg.png menu1_1.png menu1_2.png menu1_3.png menu1_4.png menu2_1.png menu2_2.png menu2_3.png menu2_4.png menu3_1.png menu3_2.png menu3_3.png menu3_4.png num_0.png num_1.png num_2.png num_3.png num_4.png num_5.png num_6.png num_7.png num_8.png num_9.png ohno1.png pause1.png pause2.png splat1.png standby.png tgulpl1.png tgulpl2.png tgulpl3.png tgulpl4.png tgulpr1.png tgulpr2.png tgulpr3.png tgulpr4.png title1.png tohyeahl1.png tohyeahr1.png trunl1.png trunl2.png trunr1.png trunr2.png tstandl1.png tstandl2.png tstandr1.png tstandr2.png tutor.png tutor1.png tutor2.png tutor3.png tutor4.png tutor5.png tutor6.png tux1.png tux2.png tux3.png tux4.png twalkl1.png twalkl2.png twalkl3.png twalkl4.png twalkr1.png twalkr2.png twalkr3.png twalkr4.png tyipel1.png tyiper1.png wcas1_4.png README_IMAGES.TXT wcas1_1.png wcas1_2.png cursorh.png cursorn.png hidden.png wcas1_3.png wcas2_1.png wcas2_2.png wcas2_3.png wcas2_4.png wcas3_2.png wcas3_1.png wcas3_3.png wcas3_4.png gm_4.png pract.png wtutor1.png wtutor2.png wtutor3.png wtutor4.png wtutor5.png wtutor6.png 
+-
+-install-data-local:
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) congrats1.png /usr/local/share/tuxtype/images/congrats1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) congrats2.png /usr/local/share/tuxtype/images/congrats2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) fish.png /usr/local/share/tuxtype/images/fish.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) fishy1.png /usr/local/share/tuxtype/images/fishy1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) fishy2.png /usr/local/share/tuxtype/images/fishy2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) fishy3.png /usr/local/share/tuxtype/images/fishy3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) fishy4.png /usr/local/share/tuxtype/images/fishy4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) gm_1.png /usr/local/share/tuxtype/images/gm_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) gm_2.png /usr/local/share/tuxtype/images/gm_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) gm_3.png /usr/local/share/tuxtype/images/gm_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas1_1.png /usr/local/share/tuxtype/images/kcas1_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas1_2.png /usr/local/share/tuxtype/images/kcas1_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas1_3.png /usr/local/share/tuxtype/images/kcas1_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas1_4.png /usr/local/share/tuxtype/images/kcas1_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas2_1.png /usr/local/share/tuxtype/images/kcas2_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas2_2.png /usr/local/share/tuxtype/images/kcas2_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas2_3.png /usr/local/share/tuxtype/images/kcas2_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas2_4.png /usr/local/share/tuxtype/images/kcas2_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas3_1.png /usr/local/share/tuxtype/images/kcas3_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas3_2.png /usr/local/share/tuxtype/images/kcas3_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas3_3.png /usr/local/share/tuxtype/images/kcas3_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) kcas3_4.png /usr/local/share/tuxtype/images/kcas3_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_1.png /usr/local/share/tuxtype/images/let_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_10.png /usr/local/share/tuxtype/images/let_10.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_11.png /usr/local/share/tuxtype/images/let_11.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_12.png /usr/local/share/tuxtype/images/let_12.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_13.png /usr/local/share/tuxtype/images/let_13.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_14.png /usr/local/share/tuxtype/images/let_14.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_15.png /usr/local/share/tuxtype/images/let_15.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_16.png /usr/local/share/tuxtype/images/let_16.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_17.png /usr/local/share/tuxtype/images/let_17.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_18.png /usr/local/share/tuxtype/images/let_18.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_19.png /usr/local/share/tuxtype/images/let_19.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_2.png /usr/local/share/tuxtype/images/let_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_20.png /usr/local/share/tuxtype/images/let_20.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_21.png /usr/local/share/tuxtype/images/let_21.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_22.png /usr/local/share/tuxtype/images/let_22.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_23.png /usr/local/share/tuxtype/images/let_23.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_24.png /usr/local/share/tuxtype/images/let_24.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_25.png /usr/local/share/tuxtype/images/let_25.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_26.png /usr/local/share/tuxtype/images/let_26.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_3.png /usr/local/share/tuxtype/images/let_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_4.png /usr/local/share/tuxtype/images/let_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_5.png /usr/local/share/tuxtype/images/let_5.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_6.png /usr/local/share/tuxtype/images/let_6.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_7.png /usr/local/share/tuxtype/images/let_7.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_8.png /usr/local/share/tuxtype/images/let_8.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) let_9.png /usr/local/share/tuxtype/images/let_9.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) level.png /usr/local/share/tuxtype/images/level.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) lives.png /usr/local/share/tuxtype/images/lives.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) main_bkg.png /usr/local/share/tuxtype/images/main_bkg.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu1_1.png /usr/local/share/tuxtype/images/menu1_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu1_2.png /usr/local/share/tuxtype/images/menu1_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu1_3.png /usr/local/share/tuxtype/images/menu1_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu1_4.png /usr/local/share/tuxtype/images/menu1_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu2_1.png /usr/local/share/tuxtype/images/menu2_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu2_2.png /usr/local/share/tuxtype/images/menu2_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu2_3.png /usr/local/share/tuxtype/images/menu2_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu2_4.png /usr/local/share/tuxtype/images/menu2_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu3_1.png /usr/local/share/tuxtype/images/menu3_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu3_2.png /usr/local/share/tuxtype/images/menu3_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu3_3.png /usr/local/share/tuxtype/images/menu3_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) menu3_4.png /usr/local/share/tuxtype/images/menu3_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_0.png /usr/local/share/tuxtype/images/num_0.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_1.png /usr/local/share/tuxtype/images/num_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_2.png /usr/local/share/tuxtype/images/num_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_3.png /usr/local/share/tuxtype/images/num_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_4.png /usr/local/share/tuxtype/images/num_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_5.png /usr/local/share/tuxtype/images/num_5.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_6.png /usr/local/share/tuxtype/images/num_6.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_7.png /usr/local/share/tuxtype/images/num_7.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_8.png /usr/local/share/tuxtype/images/num_8.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) num_9.png /usr/local/share/tuxtype/images/num_9.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) ohno1.png /usr/local/share/tuxtype/images/ohno1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) pause1.png /usr/local/share/tuxtype/images/pause1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) pause2.png /usr/local/share/tuxtype/images/pause2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) splat1.png /usr/local/share/tuxtype/images/splat1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) standby.png /usr/local/share/tuxtype/images/standby.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpl1.png /usr/local/share/tuxtype/images/tgulpl1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpl2.png /usr/local/share/tuxtype/images/tgulpl2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpl3.png /usr/local/share/tuxtype/images/tgulpl3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpl4.png /usr/local/share/tuxtype/images/tgulpl4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpr1.png /usr/local/share/tuxtype/images/tgulpr1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpr2.png /usr/local/share/tuxtype/images/tgulpr2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpr3.png /usr/local/share/tuxtype/images/tgulpr3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tgulpr4.png /usr/local/share/tuxtype/images/tgulpr4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) title1.png /usr/local/share/tuxtype/images/title1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tohyeahl1.png /usr/local/share/tuxtype/images/tohyeahl1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tohyeahr1.png /usr/local/share/tuxtype/images/tohyeahr1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) trunl1.png /usr/local/share/tuxtype/images/trunl1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) trunl2.png /usr/local/share/tuxtype/images/trunl2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) trunr1.png /usr/local/share/tuxtype/images/trunr1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) trunr2.png /usr/local/share/tuxtype/images/trunr2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tstandl1.png /usr/local/share/tuxtype/images/tstandl1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tstandl2.png /usr/local/share/tuxtype/images/tstandl2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tstandr1.png /usr/local/share/tuxtype/images/tstandr1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tstandr2.png /usr/local/share/tuxtype/images/tstandr2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tutor.png /usr/local/share/tuxtype/images/tutor.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tutor1.png /usr/local/share/tuxtype/images/tutor1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tutor2.png /usr/local/share/tuxtype/images/tutor2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tutor3.png /usr/local/share/tuxtype/images/tutor3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tutor4.png /usr/local/share/tuxtype/images/tutor4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tutor5.png /usr/local/share/tuxtype/images/tutor5.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tutor6.png /usr/local/share/tuxtype/images/tutor6.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tux1.png /usr/local/share/tuxtype/images/tux1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tux2.png /usr/local/share/tuxtype/images/tux2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tux3.png /usr/local/share/tuxtype/images/tux3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tux4.png /usr/local/share/tuxtype/images/tux4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkl1.png /usr/local/share/tuxtype/images/twalkl1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkl2.png /usr/local/share/tuxtype/images/twalkl2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkl3.png /usr/local/share/tuxtype/images/twalkl3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkl4.png /usr/local/share/tuxtype/images/twalkl4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkr1.png /usr/local/share/tuxtype/images/twalkr1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkr2.png /usr/local/share/tuxtype/images/twalkr2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkr3.png /usr/local/share/tuxtype/images/twalkr3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) twalkr4.png /usr/local/share/tuxtype/images/twalkr4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tyipel1.png /usr/local/share/tuxtype/images/tyipel1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) tyiper1.png /usr/local/share/tuxtype/images/tyiper1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas1_4.png /usr/local/share/tuxtype/images/wcas1_4.png
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) README_IMAGES.TXT /usr/doc/tuxtype/README_IMAGES.TXT
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas1_1.png /usr/local/share/tuxtype/images/wcas1_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas1_2.png /usr/local/share/tuxtype/images/wcas1_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) cursorh.png /usr/local/share/tuxtype/images/cursorh.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) cursorn.png /usr/local/share/tuxtype/images/cursorn.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) hidden.png /usr/local/share/tuxtype/images/hidden.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas1_3.png /usr/local/share/tuxtype/images/wcas1_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas2_1.png /usr/local/share/tuxtype/images/wcas2_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas2_2.png /usr/local/share/tuxtype/images/wcas2_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas2_3.png /usr/local/share/tuxtype/images/wcas2_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas2_4.png /usr/local/share/tuxtype/images/wcas2_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas3_2.png /usr/local/share/tuxtype/images/wcas3_2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas3_1.png /usr/local/share/tuxtype/images/wcas3_1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas3_3.png /usr/local/share/tuxtype/images/wcas3_3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wcas3_4.png /usr/local/share/tuxtype/images/wcas3_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) gm_4.png /usr/local/share/tuxtype/images/gm_4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) pract.png /usr/local/share/tuxtype/images/pract.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wtutor1.png /usr/local/share/tuxtype/images/wtutor1.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wtutor2.png /usr/local/share/tuxtype/images/wtutor2.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wtutor3.png /usr/local/share/tuxtype/images/wtutor3.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wtutor4.png /usr/local/share/tuxtype/images/wtutor4.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wtutor5.png /usr/local/share/tuxtype/images/wtutor5.png
+-	$(mkinstalldirs) /usr/local/share/tuxtype/images/
+-	$(INSTALL_DATA) wtutor6.png /usr/local/share/tuxtype/images/wtutor6.png
+-
+-uninstall-local:
+-	-rm -f /usr/local/share/tuxtype/images/congrats1.png
+-	-rm -f /usr/local/share/tuxtype/images/congrats2.png
+-	-rm -f /usr/local/share/tuxtype/images/fish.png
+-	-rm -f /usr/local/share/tuxtype/images/fishy1.png
+-	-rm -f /usr/local/share/tuxtype/images/fishy2.png
+-	-rm -f /usr/local/share/tuxtype/images/fishy3.png
+-	-rm -f /usr/local/share/tuxtype/images/fishy4.png
+-	-rm -f /usr/local/share/tuxtype/images/gm_1.png
+-	-rm -f /usr/local/share/tuxtype/images/gm_2.png
+-	-rm -f /usr/local/share/tuxtype/images/gm_3.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas1_1.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas1_2.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas1_3.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas1_4.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas2_1.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas2_2.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas2_3.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas2_4.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas3_1.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas3_2.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas3_3.png
+-	-rm -f /usr/local/share/tuxtype/images/kcas3_4.png
+-	-rm -f /usr/local/share/tuxtype/images/let_1.png
+-	-rm -f /usr/local/share/tuxtype/images/let_10.png
+-	-rm -f /usr/local/share/tuxtype/images/let_11.png
+-	-rm -f /usr/local/share/tuxtype/images/let_12.png
+-	-rm -f /usr/local/share/tuxtype/images/let_13.png
+-	-rm -f /usr/local/share/tuxtype/images/let_14.png
+-	-rm -f /usr/local/share/tuxtype/images/let_15.png
+-	-rm -f /usr/local/share/tuxtype/images/let_16.png
+-	-rm -f /usr/local/share/tuxtype/images/let_17.png
+-	-rm -f /usr/local/share/tuxtype/images/let_18.png
+-	-rm -f /usr/local/share/tuxtype/images/let_19.png
+-	-rm -f /usr/local/share/tuxtype/images/let_2.png
+-	-rm -f /usr/local/share/tuxtype/images/let_20.png
+-	-rm -f /usr/local/share/tuxtype/images/let_21.png
+-	-rm -f /usr/local/share/tuxtype/images/let_22.png
+-	-rm -f /usr/local/share/tuxtype/images/let_23.png
+-	-rm -f /usr/local/share/tuxtype/images/let_24.png
+-	-rm -f /usr/local/share/tuxtype/images/let_25.png
+-	-rm -f /usr/local/share/tuxtype/images/let_26.png
+-	-rm -f /usr/local/share/tuxtype/images/let_3.png
+-	-rm -f /usr/local/share/tuxtype/images/let_4.png
+-	-rm -f /usr/local/share/tuxtype/images/let_5.png
+-	-rm -f /usr/local/share/tuxtype/images/let_6.png
+-	-rm -f /usr/local/share/tuxtype/images/let_7.png
+-	-rm -f /usr/local/share/tuxtype/images/let_8.png
+-	-rm -f /usr/local/share/tuxtype/images/let_9.png
+-	-rm -f /usr/local/share/tuxtype/images/level.png
+-	-rm -f /usr/local/share/tuxtype/images/lives.png
+-	-rm -f /usr/local/share/tuxtype/images/main_bkg.png
+-	-rm -f /usr/local/share/tuxtype/images/menu1_1.png
+-	-rm -f /usr/local/share/tuxtype/images/menu1_2.png
+-	-rm -f /usr/local/share/tuxtype/images/menu1_3.png
+-	-rm -f /usr/local/share/tuxtype/images/menu1_4.png
+-	-rm -f /usr/local/share/tuxtype/images/menu2_1.png
+-	-rm -f /usr/local/share/tuxtype/images/menu2_2.png
+-	-rm -f /usr/local/share/tuxtype/images/menu2_3.png
+-	-rm -f /usr/local/share/tuxtype/images/menu2_4.png
+-	-rm -f /usr/local/share/tuxtype/images/menu3_1.png
+-	-rm -f /usr/local/share/tuxtype/images/menu3_2.png
+-	-rm -f /usr/local/share/tuxtype/images/menu3_3.png
+-	-rm -f /usr/local/share/tuxtype/images/menu3_4.png
+-	-rm -f /usr/local/share/tuxtype/images/num_0.png
+-	-rm -f /usr/local/share/tuxtype/images/num_1.png
+-	-rm -f /usr/local/share/tuxtype/images/num_2.png
+-	-rm -f /usr/local/share/tuxtype/images/num_3.png
+-	-rm -f /usr/local/share/tuxtype/images/num_4.png
+-	-rm -f /usr/local/share/tuxtype/images/num_5.png
+-	-rm -f /usr/local/share/tuxtype/images/num_6.png
+-	-rm -f /usr/local/share/tuxtype/images/num_7.png
+-	-rm -f /usr/local/share/tuxtype/images/num_8.png
+-	-rm -f /usr/local/share/tuxtype/images/num_9.png
+-	-rm -f /usr/local/share/tuxtype/images/ohno1.png
+-	-rm -f /usr/local/share/tuxtype/images/pause1.png
+-	-rm -f /usr/local/share/tuxtype/images/pause2.png
+-	-rm -f /usr/local/share/tuxtype/images/splat1.png
+-	-rm -f /usr/local/share/tuxtype/images/standby.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpl1.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpl2.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpl3.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpl4.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpr1.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpr2.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpr3.png
+-	-rm -f /usr/local/share/tuxtype/images/tgulpr4.png
+-	-rm -f /usr/local/share/tuxtype/images/title1.png
+-	-rm -f /usr/local/share/tuxtype/images/tohyeahl1.png
+-	-rm -f /usr/local/share/tuxtype/images/tohyeahr1.png
+-	-rm -f /usr/local/share/tuxtype/images/trunl1.png
+-	-rm -f /usr/local/share/tuxtype/images/trunl2.png
+-	-rm -f /usr/local/share/tuxtype/images/trunr1.png
+-	-rm -f /usr/local/share/tuxtype/images/trunr2.png
+-	-rm -f /usr/local/share/tuxtype/images/tstandl1.png
+-	-rm -f /usr/local/share/tuxtype/images/tstandl2.png
+-	-rm -f /usr/local/share/tuxtype/images/tstandr1.png
+-	-rm -f /usr/local/share/tuxtype/images/tstandr2.png
+-	-rm -f /usr/local/share/tuxtype/images/tutor.png
+-	-rm -f /usr/local/share/tuxtype/images/tutor1.png
+-	-rm -f /usr/local/share/tuxtype/images/tutor2.png
+-	-rm -f /usr/local/share/tuxtype/images/tutor3.png
+-	-rm -f /usr/local/share/tuxtype/images/tutor4.png
+-	-rm -f /usr/local/share/tuxtype/images/tutor5.png
+-	-rm -f /usr/local/share/tuxtype/images/tutor6.png
+-	-rm -f /usr/local/share/tuxtype/images/tux1.png
+-	-rm -f /usr/local/share/tuxtype/images/tux2.png
+-	-rm -f /usr/local/share/tuxtype/images/tux3.png
+-	-rm -f /usr/local/share/tuxtype/images/tux4.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkl1.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkl2.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkl3.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkl4.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkr1.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkr2.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkr3.png
+-	-rm -f /usr/local/share/tuxtype/images/twalkr4.png
+-	-rm -f /usr/local/share/tuxtype/images/tyipel1.png
+-	-rm -f /usr/local/share/tuxtype/images/tyiper1.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas1_4.png
+-	-rm -f /usr/doc/tuxtype/README_IMAGES.TXT
+-	-rm -f /usr/local/share/tuxtype/images/wcas1_1.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas1_2.png
+-	-rm -f /usr/local/share/tuxtype/images/cursorh.png
+-	-rm -f /usr/local/share/tuxtype/images/cursorn.png
+-	-rm -f /usr/local/share/tuxtype/images/hidden.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas1_3.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas2_1.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas2_2.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas2_3.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas2_4.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas3_2.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas3_1.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas3_3.png
+-	-rm -f /usr/local/share/tuxtype/images/wcas3_4.png
+-	-rm -f /usr/local/share/tuxtype/images/gm_4.png
+-	-rm -f /usr/local/share/tuxtype/images/pract.png
+-	-rm -f /usr/local/share/tuxtype/images/wtutor1.png
+-	-rm -f /usr/local/share/tuxtype/images/wtutor2.png
+-	-rm -f /usr/local/share/tuxtype/images/wtutor3.png
+-	-rm -f /usr/local/share/tuxtype/images/wtutor4.png
+-	-rm -f /usr/local/share/tuxtype/images/wtutor5.png
+-	-rm -f /usr/local/share/tuxtype/images/wtutor6.png
++images_DATA = congrats1.png congrats2.png fish.png fishy1.png fishy2.png fishy3.png fishy4.png gm_1.png gm_2.png gm_3.png kcas1_1.png kcas1_2.png kcas1_3.png kcas1_4.png kcas2_1.png kcas2_2.png kcas2_3.png kcas2_4.png kcas3_1.png kcas3_2.png kcas3_3.png kcas3_4.png let_1.png let_10.png let_11.png let_12.png let_13.png let_14.png let_15.png let_16.png let_17.png let_18.png let_19.png let_2.png let_20.png let_21.png let_22.png let_23.png let_24.png let_25.png let_26.png let_3.png let_4.png let_5.png let_6.png let_7.png let_8.png let_9.png level.png lives.png main_bkg.png menu1_1.png menu1_2.png menu1_3.png menu1_4.png menu2_1.png menu2_2.png menu2_3.png menu2_4.png menu3_1.png menu3_2.png menu3_3.png menu3_4.png num_0.png num_1.png num_2.png num_3.png num_4.png num_5.png num_6.png num_7.png num_8.png num_9.png ohno1.png pause1.png pause2.png splat1.png standby.png tgulpl1.png tgulpl2.png tgulpl3.png tgulpl4.png tgulpr1.png tgulpr2.png tgulpr3.png tgulpr4.png title1.png tohyeahl1.png tohyeahr1.png trunl1.png trunl2.png trunr1.png trunr2.png tstandl1.png tstandl2.png tstandr1.png tstandr2.png tutor.png tutor1.png tutor2.png tutor3.png tutor4.png tutor5.png tutor6.png tux1.png tux2.png tux3.png tux4.png twalkl1.png twalkl2.png twalkl3.png twalkl4.png twalkr1.png twalkr2.png twalkr3.png twalkr4.png tyipel1.png tyiper1.png wcas1_4.png wcas1_1.png wcas1_2.png cursorh.png cursorn.png hidden.png wcas1_3.png wcas2_1.png wcas2_2.png wcas2_3.png wcas2_4.png wcas3_2.png wcas3_1.png wcas3_3.png wcas3_4.png gm_4.png pract.png wtutor1.png wtutor2.png wtutor3.png wtutor4.png wtutor5.png wtutor6.png 
++pkgdoc_DATA = README_IMAGES.TXT
+ 
+ ####### kdevelop will overwrite this part!!! (end)############
+diff -durN tuxtype-1.0.orig/tuxtype/sounds/Makefile.am tuxtype-1.0/tuxtype/sounds/Makefile.am
+--- tuxtype-1.0.orig/tuxtype/sounds/Makefile.am	Wed Aug  1 13:22:03 2001
++++ tuxtype-1.0/tuxtype/sounds/Makefile.am	Tue Aug  7 15:22:11 2001
+@@ -1,52 +1,9 @@
+ ####### kdevelop will overwrite this part!!! (begin)##########
+ 
++soundsdir = $(pkgdatadir)/sounds
++pkgdocdir = $(prefix)/share/doc/tuxtype
+ 
+-EXTRA_DIST = bite.wav excuseme.wav kmus1.wav kmus2.wav kmus3.wav kmus4.wav lose.wav pause.wav run.wav splat.wav win.wav winfinal.wav README_SOUNDS.TXT funkbrk.it 
+-
+-install-data-local:
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) bite.wav /usr/local/share/tuxtype/sounds/bite.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) excuseme.wav /usr/local/share/tuxtype/sounds/excuseme.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) kmus1.wav /usr/local/share/tuxtype/sounds/kmus1.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) kmus2.wav /usr/local/share/tuxtype/sounds/kmus2.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) kmus3.wav /usr/local/share/tuxtype/sounds/kmus3.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) kmus4.wav /usr/local/share/tuxtype/sounds/kmus4.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) lose.wav /usr/local/share/tuxtype/sounds/lose.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) pause.wav /usr/local/share/tuxtype/sounds/pause.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) run.wav /usr/local/share/tuxtype/sounds/run.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) splat.wav /usr/local/share/tuxtype/sounds/splat.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) win.wav /usr/local/share/tuxtype/sounds/win.wav
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) winfinal.wav /usr/local/share/tuxtype/sounds/winfinal.wav
+-	$(mkinstalldirs) /usr/doc/tuxtype/
+-	$(INSTALL_DATA) README_SOUNDS.TXT /usr/doc/tuxtype/README_SOUNDS.TXT
+-	$(mkinstalldirs) /usr/local/share/tuxtype/sounds/
+-	$(INSTALL_DATA) funkbrk.it /usr/local/share/tuxtype/sounds/funkbrk.it
+-
+-uninstall-local:
+-	-rm -f /usr/local/share/tuxtype/sounds/bite.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/excuseme.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/kmus1.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/kmus2.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/kmus3.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/kmus4.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/lose.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/pause.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/run.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/splat.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/win.wav
+-	-rm -f /usr/local/share/tuxtype/sounds/winfinal.wav
+-	-rm -f /usr/doc/tuxtype/README_SOUNDS.TXT
+-	-rm -f /usr/local/share/tuxtype/sounds/funkbrk.it
++sounds_DATA = bite.wav excuseme.wav kmus1.wav kmus2.wav kmus3.wav kmus4.wav lose.wav pause.wav run.wav splat.wav win.wav winfinal.wav funkbrk.it 
++pkgdoc_DATA = README_SOUNDS.TXT 
+ 
+ ####### kdevelop will overwrite this part!!! (end)############
