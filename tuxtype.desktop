@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Tux Type
 Comment=Graphical, educational typing tutorial game.
-Comment[pl]=Gra edukacyjna, ucząca pisania na klawiaturze.
+Comment[pl]=Gra edukacyjna ucząca pisania na klawiaturze.
 Exec=tuxtype
 Terminal=0
 Type=Application
-a vi: encoding=utf-8
+# vi: encoding=utf-8
