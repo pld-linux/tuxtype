@@ -2,7 +2,7 @@ Summary:	Tux Typing - Graphical, educational typing tutorial game
 Summary(pl):	Tux Typing - Gra edukacyjna, ucz±ca pisania na klawiaturze
 Name:		tuxtype
 Version:	1.0.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
@@ -39,8 +39,9 @@ by byæ mi³ym sposobem nauki pisania dla dzieci.
 %patch0 -p1
 %patch1 -p1
 
+:> acinclude.m4
+
 %build
-rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -50,11 +51,12 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Games
+install -d $RPM_BUILD_ROOT%{_desktopdir}
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR="$RPM_BUILD_ROOT"
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -64,4 +66,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc README AUTHORS TODO tuxtype/*/*.TXT* tuxtype/docs/en/*.html
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/tuxtype
-%{_applnkdir}/Games/*
+%{_desktopdir}/*.desktop
