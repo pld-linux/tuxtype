@@ -1,8 +1,8 @@
 Summary:	Tux Typing - Graphical, educational typing tutorial game
 Summary(pl):	Tux Typing - Gra edukacyjna, ucz±ca pisania na klawiaturze
 Name:		tuxtype
-Version:	1.0
-Release:	2
+Version:	1.0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -40,9 +40,9 @@ by byæ mi³ym sposobem nauki pisania dla dzieci.
 %patch1 -p1
 
 %build
-automake -a
 aclocal
 %{__autoconf}
+%{__automake}
 %configure
 %{__make}
 
@@ -54,14 +54,12 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Games
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop
 
-gzip -9nf README AUTHORS TODO tuxtype/*/*.TXT
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz tuxtype/*/*.TXT* tuxtype/docs/en/*.html
+%doc README AUTHORS TODO tuxtype/*/*.TXT* tuxtype/docs/en/*.html
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/tuxtype
 %{_applnkdir}/Games/*
