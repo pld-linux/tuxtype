@@ -28,11 +28,11 @@ word. Intended to be cute and fun for children learning to type and
 spell.
 
 %description -l pl
-Nauka pisania z Tuksem, linuksowym pingwinem, w roli g³ównej. Celem
-gry jest z³apanie rybek jak spadaj± z góry ekranu. Na ka¿dej rybce
-jest napisana litera, albo s³owo, a Tux zjada rybkê gdy gracz naci¶nie
-odpowiedni± klawisz, lub wpisze w³a¶ciwe s³owo. Gra zosta³a pomy¶lana
-by byæ mi³ym sposobem nauki pisania dla dzieci.
+Nauka pisania z Tuksem, linuksowym pingwinem w roli g³ównej. Celem
+gry jest ³apanie rybek spadaj±cych z góry ekranu. Na ka¿dej rybce
+napisana jest litera lub s³owo, a Tux zjada rybkê gdy gracz naci¶nie
+odpowiedni klawisz, b±d¼ wpisze w³a¶ciwe s³owo. Gra zosta³a pomy¶lana
+by byæ mi³ym sposobem nauki pisania na klawiaturze dla dzieci.
 
 %prep
 %setup -q
