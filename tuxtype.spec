@@ -1,5 +1,5 @@
-Summary:	Tux Typing - Graphical, educational typing tutorial game.
-Summary(pl):	Tux Typing - Gra edukacyjna, ucz±ca pisania na klawiaturze.
+Summary:	Tux Typing - Graphical, educational typing tutorial game
+Summary(pl):	Tux Typing - Gra edukacyjna, ucz±ca pisania na klawiaturze
 Name:		tuxtype
 Version:	1.0
 Release:	2
@@ -15,6 +15,8 @@ URL:		http://www.geekcomix.com/dm/tuxtype/
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_image-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -54,7 +56,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Games
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Games/%{name}.desktop
 
-gzip -9nf README AUTHORS INSTALL TODO tuxtype/*/*.TXT
+gzip -9nf README AUTHORS TODO tuxtype/*/*.TXT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
