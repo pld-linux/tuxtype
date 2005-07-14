@@ -5,7 +5,7 @@ Version:	1.0.3
 Release:	2
 License:	GPL
 Group:		X11/Applications/Games
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+Source0:	http://dl.sourceforge.net/tuxtype/%{name}-%{version}.tar.bz2
 # Source0-md5:	a86bccdf9d75c98b17ebf1ee03f56b76
 Source1:	%{name}.desktop
 Patch0:		%{name}-Makefile.patch
