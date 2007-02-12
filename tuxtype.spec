@@ -1,5 +1,5 @@
 Summary:	Tux Typing - Graphical, educational typing tutorial game
-Summary(pl.UTF-8):   Tux Typing - Gra edukacyjna, ucząca pisania na klawiaturze
+Summary(pl.UTF-8):	Tux Typing - Gra edukacyjna, ucząca pisania na klawiaturze
 Name:		tuxtype
 Version:	1.0.3
 Release:	2
