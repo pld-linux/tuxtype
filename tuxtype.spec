@@ -1,5 +1,5 @@
 Summary:	Tux Typing - Graphical, educational typing tutorial game
-Summary(pl):	Tux Typing - Gra edukacyjna, ucz±ca pisania na klawiaturze
+Summary(pl.UTF-8):   Tux Typing - Gra edukacyjna, uczƒÖca pisania na klawiaturze
 Name:		tuxtype
 Version:	1.0.3
 Release:	2
@@ -27,12 +27,12 @@ by the player pressing the associated key or typing the appropriate
 word. Intended to be cute and fun for children learning to type and
 spell.
 
-%description -l pl
-Nauka pisania z Tuksem, linuksowym pingwinem w roli g≥Ûwnej. Celem
-gry jest ≥apanie rybek spadaj±cych z gÛry ekranu. Na kaødej rybce
-napisana jest litera lub s≥owo, a Tux zjada rybkÍ gdy gracz naci∂nie
-odpowiedni klawisz, b±dº wpisze w≥a∂ciwe s≥owo. Gra zosta≥a pomy∂lana
-by byÊ mi≥ym sposobem nauki pisania na klawiaturze dla dzieci.
+%description -l pl.UTF-8
+Nauka pisania z Tuksem, linuksowym pingwinem w roli g≈Ç√≥wnej. Celem
+gry jest ≈Çapanie rybek spadajƒÖcych z g√≥ry ekranu. Na ka≈ºdej rybce
+napisana jest litera lub s≈Çowo, a Tux zjada rybkƒô gdy gracz naci≈õnie
+odpowiedni klawisz, bƒÖd≈∫ wpisze w≈Ça≈õciwe s≈Çowo. Gra zosta≈Ça pomy≈õlana
+by byƒá mi≈Çym sposobem nauki pisania na klawiaturze dla dzieci.
 
 %prep
 %setup -q
